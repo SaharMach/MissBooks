@@ -10,8 +10,6 @@ export function BookDetails({bookId, onBack}){
     const [isOnSale, setIsOnSale] = useState(null)
     const [isExpanded, setExpanded] = useState(false)
 
-     
-
     useEffect(()=> {
         bookService.get(bookId)
             .then(book => {
@@ -40,16 +38,9 @@ export function BookDetails({bookId, onBack}){
     }
 
     function onSetPriceColor(currBook){
-        if(currBook.listPrice.amount > 150){
-            setPriceColor('red')
-        } 
-        if(currBook.listPrice.amount < 50)
-        { 
-            setPriceColor('green')
-         }
-        else{   
-            setPriceColor('')
-        } 
+        if(currBook.listPrice.amount > 150)setPriceColor('red')
+        else if(currBook.listPrice.amount < 50)setPriceColor('green')
+        else setPriceColor('') 
     }
 
     function isOnSaleCheck(currBook){
