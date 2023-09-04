@@ -26,8 +26,7 @@ export function App() {
                         <Route path="review" element={<AddReview />}> </Route>    
                     </Route> 
                     <Route path="/books/edit/:bookId" element={<BookEdit />} />
-                    <Route path="/books/edit" element={<BookEdit />} />
-                    
+                    <Route path="/books/edit" element={<BookEdit />} />                   
                 </Routes>
             </main>
         
