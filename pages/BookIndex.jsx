@@ -48,8 +48,8 @@ export function BookIndex(){
         <section className="books-container">
             {!selectedBookId && 
                 <React.Fragment>
-                    <Link to="/books/edit">Add Book</Link>
                     <BookFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy}/>
+                    <Link to="/books/edit"><button>Add Book</button></Link>
                     <BookList books={books} onRemoveBook={onRemoveBook} onSelectedBookId={onSelectedBookId}/>
                 </React.Fragment>
             }

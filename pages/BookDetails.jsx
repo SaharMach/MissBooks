@@ -3,6 +3,7 @@ const {useParams, useNavigate,Link} = ReactRouterDOM
 import { bookService } from "../services/book.service.js";
 import { LongTxt } from "../cmps/LongTxt.jsx";
 import { utilService } from "../services/util.service.js";
+import { AddReview } from "../cmps/add-review.jsx";
 
 export function BookDetails(){
     const [book, setBook] = useState(null)
@@ -17,6 +18,7 @@ export function BookDetails(){
                 navigate('/books')
             })
     },[params.bookId])
+
 
     function getPageCount() {
         let pageCount = book.pageCount
@@ -45,24 +47,62 @@ export function BookDetails(){
         let currencyCode = utilService.getCurrencySymbol(book.listPrice.currencyCode)
         return `${price} ${currencyCode}`
     }
+
+    function getBookReviews() {
+        let reviews = book.reviews
+        if(!reviews || !reviews.length) return
+        return reviews.map(review => {
+            console.log(review)
+            return (
+                <div key={review.id}>
+                    <div>Fullname: {review.fullname}</div>
+                    <div>Rating: {review.rating}</div>
+                    <div>ReadAt: {review.readAt}</div>
+                    <button onClick={() => onDeleteReview(review.id)} >X</button>
+                </div>
+            )
+        })
+    }
+
+    function handleReviewAdded(newReview){
+        setBook(prevBook => ({...prevBook, reviews:[...prevBook.reviews,newReview]}))
+    }
+
+    function onDeleteReview(reviewId){
+        console.log(reviewId);
+        bookService.deleteReview(book.id, reviewId)
+            .then(()=>{
+                const updatedReviews = book.reviews.filter(review => review.id !== reviewId)
+                setBook(prevBook => ({...prevBook, reviews: updatedReviews}))
+            })
+    }
+
+
     function onBack(){
         navigate('/books')
     }
     if(!book) return <div>Loading...</div>
     return (
-        <section className='book-details'> 
-            <h2>{book.title}</h2>
-            <h1>Author: {book.authors}</h1>
-            <h4>Price: <span className={getPriceColor()}>{getBookPrice()}</span></h4>  
-            <img src={`${book.thumbnail}`}alt=""/>
-            <div>Description:<LongTxt txt={book.description} /></div>
-            <section>
-                <h4>Page Count: {getPageCount()}</h4>
-                <h4>Publish year: {getPublisheYear()}</h4><br/>
-                <h4>Categories: {book.categories.join(',')}</h4>
-                <button onClick={onBack}>Return</button>
-            </section>
+        <section>
+            <section className='book-details'> 
+                <h2>{book.title}</h2>
+                <h1>Author: {book.authors}</h1>
+                <h4>Price: <span className={getPriceColor()}>{getBookPrice()}</span></h4>  
+                <img src={`${book.thumbnail}`}alt=""/>
+                <div>Description:<LongTxt txt={book.description} /></div>
+                <section>
+                    <h4>Page Count: {getPageCount()}</h4>
+                    <h4>Publish year: {getPublisheYear()}</h4><br/>
+                    <h4>Categories: {book.categories.join(',')}</h4>
+                    <button onClick={onBack}>Return</button>
+                </section>
             {book.listPrice.isOnSale && <p className='sale-modal'>On Sale</p>}
+            </section>
+            <AddReview book={book} onAddingReview={handleReviewAdded}></AddReview>
+            <section className='book-reviews'>
+                <h4>Reviews:</h4>
+                <article>{getBookReviews()}</article>
+            </section>
         </section>
     )
 }

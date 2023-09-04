@@ -1,7 +1,8 @@
-import { bookService } from "../services/book.service.js"
 const { useState, useEffect } = React
 const { useNavigate, useParams } = ReactRouterDOM
 
+import { bookService } from "../services/book.service.js"
+import { showSuccessMsg, showErrorMsg } from "../services/event-bus.service.js"
 
 export function BookEdit() {
 
@@ -24,7 +25,7 @@ export function BookEdit() {
     function handleChange({ target }) {
         const field = target.name
         let value = target.value
-
+        console.log(field);
         switch (target.type) {
             case 'number':
             case 'range':
@@ -38,7 +39,11 @@ export function BookEdit() {
             default:
                 break;
         }
-        setBookToEdit(prevBookToEdit => ({ ...prevBookToEdit, [field]: value }))
+        if(field === 'price') {
+            setBookToEdit(prevBookToEdit => ({...prevBookToEdit, listPrice:
+                 {...prevBookToEdit.listPrice , amount: value} }))
+        }
+        else setBookToEdit(prevBookToEdit => ({ ...prevBookToEdit, [field]: value }))
     }
 
 
@@ -46,13 +51,17 @@ export function BookEdit() {
         ev.preventDefault()
         console.log(bookToEdit);
         bookService.save(bookToEdit)
-            .then(() => navigate('/books'))
-            .catch(err => console.log('err:', err))
+            .then(() => {
+                navigate('/books')
+                showSuccessMsg(`The book ${bookToEdit.title} has been saved`)
+            })
+            .catch(err => {
+                showErrorMsg(`The book ${bookToEdit.title} didnt saved.`)
+                console.log('err:', err)})
 
     }
 
     const { title, price } = bookToEdit
-    console.log(bookToEdit);
     return (
         <section className="book-edit">
             <form onSubmit={onSaveBook} >

@@ -10,8 +10,10 @@ export const bookService = {
     remove,
     save,
     getEmptyBook,
-    getNextCarId,
-    getDefaultFilter
+    // getNextCarId,
+    getDefaultFilter,
+    addReview,
+    deleteReview
 }
 
 function query(filterBy = {})  {
@@ -57,6 +59,7 @@ function getEmptyBook(title ='', price = '') {
       "publishedDate": 1999,
       "description": "lorem molestie ut euismod ad quis mi ultricies nisl cursus suspendisse dui tempor sit suscipit metus etiam euismod tortor sagittis habitant",
       "pageCount": 972,
+      "reviews": [],
       "categories": [
         "Computers",
         "Hack"
@@ -76,14 +79,14 @@ function getDefaultFilter() {
     return { title: '', price: '' }
 }
 
-function getNextCarId(bookId) {
-    return storageService.query(CAR_KEY)
-        .then(cars => {
-            var idx = cars.findIndex(car => car.id === carId)
-            if (idx === cars.length - 1) idx = -1
-            return cars[idx + 1].id
-        })
-}
+// function getNextCarId(bookId) {
+//     return storageService.query(CAR_KEY)
+//         .then(cars => {
+//             var idx = cars.findIndex(car => car.id === carId)
+//             if (idx === cars.length - 1) idx = -1
+//             return cars[idx + 1].id
+//         })
+// }
 
 function _createBooks() {
     let books = utilService.loadFromStorage(STORAGE_KEY)
@@ -105,6 +108,7 @@ function _createBooks() {
               ],
               "thumbnail": "http://coding-academy.org/books-photos/20.jpg",
               "language": "en",
+              "reviews": [],
               "listPrice": {
                 "amount": 109,
                 "currencyCode": "EUR",
@@ -127,6 +131,7 @@ function _createBooks() {
               ],
               "thumbnail": "http://coding-academy.org/books-photos/14.jpg",
               "language": "sp",
+              "reviews": [],
               "listPrice": {
                 "amount": 44,
                 "currencyCode": "EUR",
@@ -149,6 +154,7 @@ function _createBooks() {
               ],
               "thumbnail": "http://coding-academy.org/books-photos/2.jpg",
               "language": "he",
+              "reviews": [],
               "listPrice": {
                 "amount": 108,
                 "currencyCode": "ILS",
@@ -171,6 +177,7 @@ function _createBooks() {
               ],
               "thumbnail": "http://coding-academy.org/books-photos/16.jpg",
               "language": "en",
+              "reviews": [],
               "listPrice": {
                 "amount": 30,
                 "currencyCode": "EUR",
@@ -193,6 +200,7 @@ function _createBooks() {
               ],
               "thumbnail": "http://coding-academy.org/books-photos/12.jpg",
               "language": "sp",
+              "reviews": [],
               "listPrice": {
                 "amount": 19,
                 "currencyCode": "USD",
@@ -215,6 +223,7 @@ function _createBooks() {
               ],
               "thumbnail": "http://coding-academy.org/books-photos/1.jpg",
               "language": "en",
+              "reviews": [],
               "listPrice": {
                 "amount": 91,
                 "currencyCode": "USD",
@@ -237,6 +246,7 @@ function _createBooks() {
               ],
               "thumbnail": "http://coding-academy.org/books-photos/14.jpg",
               "language": "he",
+              "reviews": [],
               "listPrice": {
                 "amount": 90,
                 "currencyCode": "USD",
@@ -259,6 +269,7 @@ function _createBooks() {
               ],
               "thumbnail": "http://coding-academy.org/books-photos/11.jpg",
               "language": "he",
+              "reviews": [],
               "listPrice": {
                 "amount": 176,
                 "currencyCode": "EUR",
@@ -281,6 +292,7 @@ function _createBooks() {
               ],
               "thumbnail": "http://coding-academy.org/books-photos/10.jpg",
               "language": "sp",
+              "reviews": [],
               "listPrice": {
                 "amount": 116,
                 "currencyCode": "USD",
@@ -303,6 +315,7 @@ function _createBooks() {
               ],
               "thumbnail": "http://coding-academy.org/books-photos/5.jpg",
               "language": "en",
+              "reviews": [],
               "listPrice": {
                 "amount": 145,
                 "currencyCode": "EUR",
@@ -325,6 +338,7 @@ function _createBooks() {
               ],
               "thumbnail": "http://coding-academy.org/books-photos/16.jpg",
               "language": "sp",
+              "reviews": [],
               "listPrice": {
                 "amount": 157,
                 "currencyCode": "ILS",
@@ -347,6 +361,7 @@ function _createBooks() {
               ],
               "thumbnail": "http://coding-academy.org/books-photos/17.jpg",
               "language": "sp",
+              "reviews": [],
               "listPrice": {
                 "amount": 57,
                 "currencyCode": "USD",
@@ -369,6 +384,7 @@ function _createBooks() {
               ],
               "thumbnail": "http://coding-academy.org/books-photos/8.jpg",
               "language": "en",
+              "reviews": [],
               "listPrice": {
                 "amount": 167,
                 "currencyCode": "ILS",
@@ -391,6 +407,7 @@ function _createBooks() {
               ],
               "thumbnail": "http://coding-academy.org/books-photos/3.jpg",
               "language": "he",
+              "reviews": [],
               "listPrice": {
                 "amount": 150,
                 "currencyCode": "USD",
@@ -413,6 +430,7 @@ function _createBooks() {
               ],
               "thumbnail": "http://coding-academy.org/books-photos/6.jpg",
               "language": "en",
+              "reviews": [],
               "listPrice": {
                 "amount": 58,
                 "currencyCode": "ILS",
@@ -435,6 +453,7 @@ function _createBooks() {
               ],
               "thumbnail": "http://coding-academy.org/books-photos/7.jpg",
               "language": "en",
+              "reviews": [],
               "listPrice": {
                 "amount": 78,
                 "currencyCode": "USD",
@@ -457,6 +476,7 @@ function _createBooks() {
               ],
               "thumbnail": "http://coding-academy.org/books-photos/10.jpg",
               "language": "en",
+              "reviews": [],
               "listPrice": {
                 "amount": 118,
                 "currencyCode": "ILS",
@@ -479,6 +499,7 @@ function _createBooks() {
               ],
               "thumbnail": "http://coding-academy.org/books-photos/12.jpg",
               "language": "he",
+              "reviews": [],
               "listPrice": {
                 "amount": 60,
                 "currencyCode": "EUR",
@@ -501,6 +522,7 @@ function _createBooks() {
               ],
               "thumbnail": "http://coding-academy.org/books-photos/20.jpg",
               "language": "he",
+              "reviews": [],
               "listPrice": {
                 "amount": 110,
                 "currencyCode": "USD",
@@ -523,6 +545,7 @@ function _createBooks() {
               ],
               "thumbnail": "http://coding-academy.org/books-photos/2.jpg",
               "language": "sp",
+              "reviews": [],
               "listPrice": {
                 "amount": 186,
                 "currencyCode": "ILS",
@@ -535,15 +558,23 @@ function _createBooks() {
 
     }
 
-// function _createBook(title) {
-//     const book = {
-//         id: utilService.makeId(),
-//         title: title,
-//         listPrice:{
-//             amount: 109,
-//             currencyCode: 'EUR',
-//             isOnSale: false
-//         }
-//     }
-//     return book
-// }
+
+function addReview(bookId,review){
+  console.log('review:', review)
+    return storageService.get(STORAGE_KEY,bookId)
+        .then(book => {
+          book.reviews.push(review)
+          return storageService.put(STORAGE_KEY,book)
+        })
+}
+
+function deleteReview(bookId,reviewId){
+      return storageService.get(STORAGE_KEY, bookId)
+      .then(book => {
+        let currReview = book.reviews.findIndex(review => review.id === reviewId)
+        console.log('currReview:', currReview)
+        book.reviews.splice(currReview, 1)
+        return storageService.put(STORAGE_KEY,book)
+      })
+}
+
