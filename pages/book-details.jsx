@@ -54,7 +54,7 @@ export function BookDetails(){
         return reviews.map(review => {
             console.log(review)
             return (
-                <div key={review.id}>
+                <div className="review-card" key={review.id}>
                     <div>Fullname: {review.fullname}</div>
                     <div>Rating: {review.rating}</div>
                     <div>ReadAt: {review.readAt}</div>
@@ -84,24 +84,27 @@ export function BookDetails(){
     }
     if(!book) return <div>Loading...</div>
     return (
-        <section>
-            <section className='book-details'> 
-                <h2>{book.title}</h2>
-                <h1>Author: {book.authors}</h1>
-                <h4>Price: <span className={getPriceColor()}>{getBookPrice()}</span></h4>  
-                <img src={`${book.thumbnail}`}alt=""/>
-                <div>Description:<LongTxt txt={book.description} /></div>
-                <section>
-                    <h4>Page Count: {getPageCount()}</h4>
-                    <h4>Publish year: {getPublisheYear()}</h4><br/>
-                    <h4>Categories: {book.categories.join(',')}</h4>
-                    <button onClick={onBack}>Return</button>
+        <section className="main-layout">
+            <section className="book-container">
+                <section className='book-details'> 
+                    <h2>{book.title}</h2>
+                    <h1>Author: {book.authors}</h1>
+                    <h4>Price: <span className={getPriceColor()}>{getBookPrice()}</span></h4>  
+                    <img src={`${book.thumbnail}`}alt=""/>
+                    <div>Description:<LongTxt txt={book.description} /></div>
+                    <section>
+                        <h4>Page Count: {getPageCount()}</h4>
+                        <h4>Publish year: {getPublisheYear()}</h4><br/>
+                        <h4>Categories: {book.categories.join(',')}</h4>
+                        <button onClick={onBack}>Return</button>
+                    </section>
+                {book.listPrice.isOnSale && <p className='sale-modal'>On Sale</p>}
                 </section>
-            {book.listPrice.isOnSale && <p className='sale-modal'>On Sale</p>}
-            </section>
+            <h4>Add Review</h4>
             <AddReview book={book} onAddingReview={handleReviewAdded}></AddReview>
+            </section>
+                <h4 className="review-title">Reviews:</h4>
             <section className='book-reviews'>
-                <h4>Reviews:</h4>
                 <article>{getBookReviews()}</article>
             </section>
         </section>

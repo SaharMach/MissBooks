@@ -11,7 +11,6 @@ import { showSuccessMsg, showErrorMsg } from "../services/event-bus.service.js";
 
 export function BookIndex(){
     const [books, setBooks] = useState(null)
-    const [selectedBookId, setSelectedBookId] = useState(null)
     const [filterBy,setFilterBy] = useState(bookService.getDefaultFilter())
 
     useEffect(()=> {
@@ -32,9 +31,7 @@ export function BookIndex(){
             
     }
 
-    function onSelectedBookId(bookId){
-        setSelectedBookId(bookId)
-    }
+
 
     function onSetFilterBy(filterBy){  
         console.log(filterBy);
@@ -46,15 +43,14 @@ export function BookIndex(){
     if(!books) return <div>Loading...</div>
     return (
         <section className="books-container">
-            {!selectedBookId && 
+            {
                 <React.Fragment>
                     <BookFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy}/>
                     <Link to="/books/edit"><button>Add Book</button></Link>
-                    <BookList books={books} onRemoveBook={onRemoveBook} onSelectedBookId={onSelectedBookId}/>
+                    <BookList books={books} onRemoveBook={onRemoveBook}/>
                 </React.Fragment>
             }
             
-            {selectedBookId && <BookDetails onBack={() => onSelectedBookId(null)} bookId={selectedBookId} />}
         </section>
     )
 }

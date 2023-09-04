@@ -48,15 +48,15 @@ export function AddReview({book, onAddingReview}){
     return (
         <section className="add-review">
             <form onSubmit={onSaveReview}>
-                <label htmlFor="fullname">Fullname:</label>
+                <label htmlFor="fullname">Fullname: </label>
                 <input onChange={handleChange} value={fullname} type="text" name="fullname" id="fullname" />
 
-                <label htmlFor="rating">Rating:</label>
+                <label htmlFor="rating"> Rating: </label>
                 <select name="rating" id="rating" value={rating} onChange={handleChange}>
                     {['⭐️', '⭐️⭐️', '⭐️⭐️⭐️', '⭐️⭐️⭐️⭐️', '⭐️⭐️⭐️⭐️⭐️'].map(rate => <option key={rate} value={rate}>{rate}</option>)}
                 </select>
                 
-                <label htmlFor="readAt">readAt:</label>
+                <label htmlFor="readAt"> readAt: </label>
                 <input onChange={handleChange} value={readAt} type="date" name="readAt" id="readAt" />
 
                 <button>Save</button>
