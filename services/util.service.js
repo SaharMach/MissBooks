@@ -6,7 +6,8 @@ export const utilService = {
     saveToStorage,
     padNum,
     getDayName,
-    getMonthName
+    getMonthName,
+    getCurrencySymbol
 }
 
 function makeId(length = 6) {
@@ -59,4 +60,16 @@ function getMonthName(date) {
         'July', 'August', 'September', 'October', 'November', 'December'
     ]
     return monthNames[date.getMonth()]
+}
+
+
+function getCurrencySymbol(currencyCode) {
+    switch (currencyCode) {
+        case 'EUR':
+            return '€'
+        case 'ILS':
+            return '₪'
+        case 'USD':
+            return '$'
+    }
 }
