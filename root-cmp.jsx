@@ -2,11 +2,11 @@ const {useState} = React
 const Router = ReactRouterDOM.HashRouter
 const { Routes, Route, Navigate } = ReactRouterDOM
 
-import { Home } from './pages/Home.jsx'
-import { AboutUs } from './pages/AboutUs.jsx'
-import { BookIndex } from './pages/BookIndex.jsx'
+import { Home } from './pages/home.jsx'
+import { AboutUs } from './pages/about-us.jsx'
+import { BookIndex } from './pages/book-index.jsx'
 import { AppHeader } from './cmps/app-header.jsx'
-import { BookDetails } from './pages/BookDetails.jsx'
+import { BookDetails } from './pages/book-details.jsx'
 import { BookEdit } from './pages/book-edit.jsx'
 import { AddReview } from './cmps/add-review.jsx'
 

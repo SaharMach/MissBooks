@@ -1,5 +1,5 @@
 const { Link } = ReactRouterDOM
-import { BookPreview } from "./BookPreview.jsx"
+import { BookPreview } from "./book-preview.jsx"
 
 export function BookList({ books,onRemoveBook }){
     return (

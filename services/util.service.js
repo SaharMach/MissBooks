@@ -7,7 +7,8 @@ export const utilService = {
     padNum,
     getDayName,
     getMonthName,
-    getCurrencySymbol
+    getCurrencySymbol,
+    getFullDate
 }
 
 function makeId(length = 6) {
@@ -72,4 +73,9 @@ function getCurrencySymbol(currencyCode) {
         case 'USD':
             return '$'
     }
+}
+
+function getFullDate(){
+    const date = new Date()
+    return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}  ${date.getHours()}:${date.getMinutes()}`
 }

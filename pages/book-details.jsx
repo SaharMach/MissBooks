@@ -1,7 +1,7 @@
 const {useState,useEffect} = React
 const {useParams, useNavigate,Link} = ReactRouterDOM
 import { bookService } from "../services/book.service.js";
-import { LongTxt } from "../cmps/LongTxt.jsx";
+import { LongTxt } from "../cmps/longtxt.jsx";
 import { utilService } from "../services/util.service.js";
 import { AddReview } from "../cmps/add-review.jsx";
 
@@ -58,6 +58,7 @@ export function BookDetails(){
                     <div>Fullname: {review.fullname}</div>
                     <div>Rating: {review.rating}</div>
                     <div>ReadAt: {review.readAt}</div>
+                    <div>WrittenAt: {review.writtenAt} </div>
                     <button onClick={() => onDeleteReview(review.id)} >X</button>
                 </div>
             )

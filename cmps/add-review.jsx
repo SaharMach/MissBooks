@@ -8,7 +8,8 @@ export function AddReview({book, onAddingReview}){
         id: utilService.makeId(),
         fullname: '',
         rating: 1,
-        readAt: 0
+        readAt: 0,
+        writtenAt: utilService.getFullDate()
     });
 
     
@@ -52,11 +53,11 @@ export function AddReview({book, onAddingReview}){
 
                 <label htmlFor="rating">Rating:</label>
                 <select name="rating" id="rating" value={rating} onChange={handleChange}>
-                    {[1, 2, 3, 4, 5].map(num => <option key={num} value={num}>{num}</option>)}
+                    {['⭐️', '⭐️⭐️', '⭐️⭐️⭐️', '⭐️⭐️⭐️⭐️', '⭐️⭐️⭐️⭐️⭐️'].map(rate => <option key={rate} value={rate}>{rate}</option>)}
                 </select>
                 
                 <label htmlFor="readAt">readAt:</label>
-                <input onChange={handleChange} value={readAt} type="number" name="readAt" id="readAt" />
+                <input onChange={handleChange} value={readAt} type="date" name="readAt" id="readAt" />
 
                 <button>Save</button>
             </form>

@@ -1,11 +1,11 @@
 const {useState, useEffect} = React
 const {Link} = ReactRouterDOM
 
-import { BookList } from "../cmps/BookList.jsx";
+import { BookList } from "../cmps/book-list.jsx";
 import { storageService } from "../services/async-storage.service.js";
 import { bookService } from "../services/book.service.js";
-import { BookDetails } from "./BookDetails.jsx";
-import { BookFilter } from "../cmps/BookFilter.jsx";
+import { BookDetails } from "./book-details.jsx";
+import { BookFilter } from "../cmps/book-filter.jsx";
 import { showSuccessMsg, showErrorMsg } from "../services/event-bus.service.js";
 
 
