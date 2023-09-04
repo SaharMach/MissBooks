@@ -7,10 +7,10 @@ import { AboutUs } from './pages/AboutUs.jsx'
 import { BookIndex } from './pages/BookIndex.jsx'
 import { AppHeader } from './cmps/app-header.jsx'
 import { BookDetails } from './pages/BookDetails.jsx'
+import { BookEdit } from './cmps/book-edit.jsx'
 
 
 export function App() {
-    const [page, setPage] = useState('book')
 
     return (
         <Router>
@@ -22,6 +22,8 @@ export function App() {
                     <Route path="/aboutUs" element={<AboutUs/>}/>
                     <Route path="/books" element={<BookIndex/>}/>
                     <Route path="/books/:bookId" element={<BookDetails/>}/>
+                    <Route path="/books/edit/:bookId" element={<BookEdit />} />
+                    <Route path="/books/edit" element={<BookEdit />} />
                 </Routes>
             </main>
         

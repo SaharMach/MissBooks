@@ -9,7 +9,7 @@ export const bookService = {
     get,
     remove,
     save,
-    // getEmptyCar,
+    getEmptyBook,
     getNextCarId,
     getDefaultFilter
 }
@@ -38,24 +38,45 @@ function remove(bookId) {
     return storageService.remove(STORAGE_KEY, bookId)
 }
 
-function save(car) {
-    if (car.id) {
-        return storageService.put(STORAGE_KEY, bookId)
+function save(book) {
+    if (book.id) {
+        return storageService.put(STORAGE_KEY, book)
     } else {
-        return storageService.post(STORAGE_KEY, bookId)
+        return storageService.post(STORAGE_KEY, book)
     }
 }
 
-// function getEmptyBook(vendor = '', maxSpeed = 0) {
-//     return { id: '', vendor, maxSpeed }
-// }
+function getEmptyBook(title ='', price = '') {
+    return {
+      "id": '',
+      "title": title,
+      "subtitle": "gravida libero facilisis rhoncus urna etiam",
+      "authors": [
+        "Dr. Seuss"
+      ],
+      "publishedDate": 1999,
+      "description": "lorem molestie ut euismod ad quis mi ultricies nisl cursus suspendisse dui tempor sit suscipit metus etiam euismod tortor sagittis habitant",
+      "pageCount": 972,
+      "categories": [
+        "Computers",
+        "Hack"
+      ],
+      "thumbnail": "http://coding-academy.org/books-photos/2.jpg",
+      "language": "he",
+      "listPrice": {
+        "amount": price,
+        "currencyCode": "ILS",
+        "isOnSale": false
+      }
+    }
+}
 
 
 function getDefaultFilter() {
     return { title: '', price: '' }
 }
 
-function getNextCarId(carId) {
+function getNextCarId(bookId) {
     return storageService.query(CAR_KEY)
         .then(cars => {
             var idx = cars.findIndex(car => car.id === carId)

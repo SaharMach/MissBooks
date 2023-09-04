@@ -1,10 +1,12 @@
 const {useState, useEffect} = React
+const {Link} = ReactRouterDOM
 
 import { BookList } from "../cmps/BookList.jsx";
 import { storageService } from "../services/async-storage.service.js";
 import { bookService } from "../services/book.service.js";
 import { BookDetails } from "./BookDetails.jsx";
 import { BookFilter } from "../cmps/BookFilter.jsx";
+import { showSuccessMsg, showErrorMsg } from "../services/event-bus.service.js";
 
 
 export function BookIndex(){
@@ -20,7 +22,14 @@ export function BookIndex(){
     function onRemoveBook(bookId){
         bookService.remove(bookId)
             .then(() => {setBooks(prevBook => 
-                prevBook.filter(book => book.id !== bookId))})
+                prevBook.filter(book => book.id !== bookId))
+                showSuccessMsg(`Book removed ${bookId}`)
+            })
+            .catch(err=> {
+                console.log('err', err)
+                showErrorMsg(`Cannot remove ${bookId}`)
+            })
+            
     }
 
     function onSelectedBookId(bookId){
@@ -39,6 +48,7 @@ export function BookIndex(){
         <section className="books-container">
             {!selectedBookId && 
                 <React.Fragment>
+                    <Link to="/books/edit">Add Book</Link>
                     <BookFilter filterBy={filterBy} onSetFilterBy={onSetFilterBy}/>
                     <BookList books={books} onRemoveBook={onRemoveBook} onSelectedBookId={onSelectedBookId}/>
                 </React.Fragment>
